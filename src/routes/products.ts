@@ -7,15 +7,20 @@ import {
   updateProduct,
   deleteProduct
 } from '../controllers/productController';
+import validate from '../middleware/validatorRequest';
+import { createProductSchema, updateProductSchema } from '../validation/productValidation';
+import { addProductPriceEntry, getAllProductPriceHistories } from '../controllers/productPriceHistoryController';
+import { addProductPriceEntrySchema } from '../validation/productPriceHistoryValidation';
 
-// import authMiddleware from '../middleware/authMiddleware';
+const productRouter: Router = Router();
 
-const router = Router();
+productRouter.get('/', getAllProducts);
+productRouter.get('/:id', getProductById);
+productRouter.get('/:id/price-histories',);
+productRouter.post('/', validate(createProductSchema, "body"), createProduct);
+productRouter.put('/:id', validate(updateProductSchema, "body"), updateProduct);
+productRouter.delete('/:id', deleteProduct);
+productRouter.get('/:productId/price-histories', getAllProductPriceHistories);
+productRouter.post('/:productId/price-history', validate(addProductPriceEntrySchema, 'body'), addProductPriceEntry);
 
-router.get('/', getAllProducts);
-router.get('/:id', getProductById);
-// router.post('/', authMiddleware, createProduct); // Contoh: create perlu auth
-// router.put('/:id', authMiddleware, updateProduct); // Contoh: update perlu auth
-// router.delete('/:id', authMiddleware, deleteProduct); // Contoh: delete perlu auth
-
-export default router;
+export default productRouter;
