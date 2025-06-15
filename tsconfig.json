@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",                /* Specify what JS language version to output. */
+    "target": "es2019",                /* Specify what JS language version to output. */
     "module": "commonjs",             /* Specify module code generation: commonjs, amd, system, umd, es2015, es2020, es2022, esnext, node16, nodenext. */
     "rootDir": "./src",               /* Specify the root folder within your source files. */
     "outDir": "./dist",               /* Redirect output structure to the directory. */
