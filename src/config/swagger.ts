@@ -1,4 +1,4 @@
-// src/config/swagger.ts
+
 import swaggerJsDoc from 'swagger-jsdoc';
 
 const swaggerOptions = {
@@ -15,111 +15,17 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:5000/api', // Sesuaikan dengan URL backend Anda
+        url: 'http://localhost:3000/api-docs',
         description: 'Development Server'
       },
-      // {
-      //     url: 'https://api.your-pos-app.com/api',
-      //     description: 'Production Server'
-      // }
+
+
+
+
     ],
     components: {
-      securitySchemes: {
-        BearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-          description: 'Enter JWT token in the format: Bearer <token>'
-        }
-      },
       schemas: {
 
-        // // ================== AUTH Schemas ==================
-        // AuthLoginRequest: {
-        //     type: 'object',
-        //     required: ['email', 'password'],
-        //     properties: {
-        //         email: {
-        //             type: 'string',
-        //             format: 'email',
-        //             description: 'User email'
-        //         },
-        //         password: {
-        //             type: 'string',
-        //             format: 'password',
-        //             description: 'User password (min 6 characters)',
-        //             minLength: 6
-        //         }
-        //     },
-        //     example: {
-        //         email: 'cashier@example.com',
-        //         password: 'password123'
-        //     }
-        // },
-        // AuthRegisterRequest: {
-        //     type: 'object',
-        //     required: ['name', 'email', 'password'],
-        //     properties: {
-        //         name: {
-        //             type: 'string',
-        //             description: 'User full name'
-        //         },
-        //         email: {
-        //             type: 'string',
-        //             format: 'email',
-        //             description: 'User email'
-        //         },
-        //         password: {
-        //             type: 'string',
-        //             format: 'password',
-        //             description: 'User password (min 6 characters)',
-        //             minLength: 6
-        //         },
-        //         role: {
-        //             type: 'string',
-        //             description: 'User role (e.g., admin, cashier)',
-        //             enum: ['admin', 'cashier'], // Sesuaikan dengan role Anda
-        //             default: 'cashier'
-        //         }
-        //     },
-        //     example: {
-        //         name: 'Kasir Utama',
-        //         email: 'cashier@example.com',
-        //         password: 'password123',
-        //         role: 'cashier'
-        //     }
-        // },
-        // AuthResponse: {
-        //     type: 'object',
-        //     properties: {
-        //         token: {
-        //             type: 'string',
-        //             description: 'JWT authentication token'
-        //         }
-        //     },
-        //     example: {
-        //         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY2OTI5N2RkNDcxNTNhY2I3YzA5OGZmIn0sImlhdCI6MTcxODE4NTA1MywiZXhwIjoxNzE4MTg4NjUzfQ.someRandomHash'
-        //     }
-        // },
-        // User: {
-        //     type: 'object',
-        //     properties: {
-        //         _id: { type: 'string', description: 'User ID' },
-        //         name: { type: 'string', description: 'User full name' },
-        //         email: { type: 'string', format: 'email', description: 'User email' },
-        //         role: { type: 'string', description: 'User role' },
-        //         date: { type: 'string', format: 'date-time', description: 'Registration date' }
-        //     },
-        //     example: {
-        //         _id: '6669297dd47153acb7c098ff',
-        //         name: 'Kasir Utama',
-        //         email: 'cashier@example.com',
-        //         role: 'cashier',
-        //         date: '2024-06-12T07:10:00.000Z'
-        //     }
-        // },
-
-        // ================== PRODUCT Schemas ==================
 
         Product: {
           type: 'object',
@@ -131,14 +37,14 @@ const swaggerOptions = {
             price: { $ref: '#/components/schemas/ProductPriceHistoryRef', minimum: 0 },
             stock: { type: 'integer', description: 'Current stock quantity', minimum: 0 },
             imageUrl: { type: 'string', format: 'url', description: 'URL of the product image', nullable: true },
-            category: { $ref: '#/components/schemas/CategoryRef' }, // Referensi ke Category
+            category: { $ref: '#/components/schemas/CategoryRef' },
             date: { type: 'string', format: 'date-time', description: 'Date of product creation' },
             discount: {
               type: 'number',
               format: 'float',
               description: 'Discount applied to this item (e.g., in percentage like 0.10 for 10% or fixed amount).',
               minimum: 0,
-              nullable: true // Diskon bisa jadi tidak selalu ada
+              nullable: true
             },
           },
           example: {
@@ -150,7 +56,7 @@ const swaggerOptions = {
               price: 20000
             },
             stock: 50,
-            imageUrl: 'https://example.com/nasgor.jpg',
+            imageUrl: 'https:image.com',
             category: {
               _id: '66692b2f9b1d8e001c8c8c8e',
               name: 'Food'
@@ -159,7 +65,7 @@ const swaggerOptions = {
             discount: 0.10
           }
         },
-        ProductInput: { // Untuk POST/PUT request body
+        ProductInput: {
           type: 'object',
           required: ['name', 'price', 'stock', 'category'],
           properties: {
@@ -174,7 +80,7 @@ const swaggerOptions = {
               format: 'float',
               description: 'Discount applied to this item (e.g., in percentage like 0.10 for 10% or fixed amount).',
               minimum: 0,
-              nullable: true // Diskon bisa jadi tidak selalu ada
+              nullable: true
             },
           },
           example: {
@@ -182,13 +88,13 @@ const swaggerOptions = {
             description: 'Nasi goreng dengan telur, ayam, dan kerupuk',
             price: 25000,
             stock: 50,
-            imageUrl: 'https://example.com/nasgor.jpg',
+            imageUrl: 'https://image.com',
             category: '66692b2f9b1d8e001c8c8c8e',
             discount: 0.10
           }
         },
 
-        ProductRef: { // Untuk referensi produk di item transaksi
+        ProductRef: {
           type: 'object',
           properties: {
             _id: { type: 'string', description: 'Product ID' },
@@ -200,7 +106,9 @@ const swaggerOptions = {
           }
         },
 
-        // ================== CATEGORY Schemas ==================
+
+
+
         Category: {
           type: 'object',
           required: ['name'],
@@ -218,7 +126,7 @@ const swaggerOptions = {
           }
         },
 
-        CategoryInput: { // Untuk POST/PUT request body
+        CategoryInput: {
           type: 'object',
           required: ['name'],
           properties: {
@@ -231,7 +139,7 @@ const swaggerOptions = {
           }
         },
 
-        CategoryRef: { // Untuk referensi kategori di Product
+        CategoryRef: {
           type: 'object',
           properties: {
             _id: { type: 'string', description: 'Category ID' },
@@ -243,7 +151,7 @@ const swaggerOptions = {
           }
         },
 
-        // ================== Product Price History Schemas ==================
+
         ProductPriceHistory: {
           type: 'object',
           required: ['price'],
@@ -260,7 +168,7 @@ const swaggerOptions = {
             endDate: '2024-06-12T07:20:00.000Z'
           }
         },
-        ProductPriceHistoryInput: { // Untuk POST/PUT request body
+        ProductPriceHistoryInput: {
           type: 'object',
           required: ['price'],
           properties: {
@@ -275,7 +183,7 @@ const swaggerOptions = {
           }
         },
 
-        ProductPriceHistoryRef: { // Untuk referensi history harga di Product
+        ProductPriceHistoryRef: {
           type: 'object',
           properties: {
             _id: { type: 'string', description: 'ProductPriceHistory ID' },
@@ -289,7 +197,7 @@ const swaggerOptions = {
 
 
 
-        // ================== Supplier Schemas ==================
+
 
         Supplier: {
           type: 'object',
@@ -362,7 +270,7 @@ const swaggerOptions = {
           }
         },
 
-        // --- Tambahkan juga skema input untuk ProductSupplier (untuk POST/PUT) ---
+
         ProductSupplierInput: {
           type: 'object',
           required: ['productId', 'supplierId', 'unitCost'],
@@ -410,27 +318,27 @@ const swaggerOptions = {
         },
 
 
-        // ================== TRANSACTION TYPE Schemas ==================
+
 
         TransactionType: {
           type: 'object',
           required: ['name', 'description'],
           properties: {
-            _id: { type: 'string', description: 'Transaction Type ID' }, // Untuk MySQL, ini bisa 'id' (integer), tapi di API sering string
+            _id: { type: 'string', description: 'Transaction Type ID' },
             name: { type: 'string', description: 'Name of the transaction type (e.g., Sale, Return, Cancellation)', unique: true },
             description: { type: 'string', description: 'Brief description of the transaction type', nullable: true },
             createdAt: { type: 'string', format: 'date-time', description: 'Date when the transaction type was created' },
             updatedAt: { type: 'string', format: 'date-time', description: 'Date when the transaction type was last updated' }
           },
           example: {
-            _id: '1', // Contoh ID untuk MySQL
+            _id: '1',
             name: 'Sale',
             description: 'Regular product sale',
             createdAt: '2024-06-14T08:00:00.000Z',
             updatedAt: '2024-06-14T08:00:00.000Z'
           }
         },
-        TransactionTypeRef: { // Untuk referensi di skema lain
+        TransactionTypeRef: {
           type: 'object',
           properties: {
             _id: { type: 'string', description: 'Transaction Type ID' },
@@ -442,7 +350,7 @@ const swaggerOptions = {
           }
         },
 
-        TransactionTypeInput: { // Untuk POST/PUT request body
+        TransactionTypeInput: {
           type: 'object',
           required: ['name', 'description'],
           properties: {
@@ -455,7 +363,7 @@ const swaggerOptions = {
           }
         },
 
-        // ================== TRANSACTION Schemas ==================
+
         Transaction: {
           type: 'object',
           required: ['items', 'totalAmount', 'paymentMethod'],
@@ -479,7 +387,7 @@ const swaggerOptions = {
           },
           example: {
             _id: '66692b2f9b1d8e001c8c8c9a',
-            transactionId: 'INV-20240612-001',// kenapa ada ini
+            transactionId: 'INV-20240612-001',
             transactionTypeId: '6669b34234',
             items: [
               {
@@ -512,7 +420,7 @@ const swaggerOptions = {
           type: 'object',
           required: ['product', 'quantity', 'price', 'subtotal'],
           properties: {
-            product: { $ref: '#/components/schemas/ProductRef' }, // Referensi ke produk
+            product: { $ref: '#/components/schemas/ProductRef' },
             quantity: { type: 'integer', description: 'Quantity of the product', minimum: 1 },
             price: { $ref: '#/conponents/schemas/ProductPriceHistoryRef' },
             subtotal: { type: 'number', format: 'float', description: 'Subtotal for this item (quantity * price)' }
@@ -528,7 +436,7 @@ const swaggerOptions = {
           }
         },
 
-        TransactionInput: { // Untuk POST request body transaksi
+        TransactionInput: {
           type: 'object',
           required: ['items', 'totalAmount', 'paymentMethod', 'amountPaid', 'transactionTypeId'],
           properties: {
@@ -538,7 +446,7 @@ const swaggerOptions = {
               items: {
                 type: 'object',
                 required: ['productId', 'quantity'],
-                  productId: { type: 'string', description: 'ID of the product' },
+                productId: { type: 'string', description: 'ID of the product' },
                 properties: {
                   quantity: { type: 'integer', description: 'Quantity purchased', minimum: 1 }
                 }
@@ -560,19 +468,7 @@ const swaggerOptions = {
           }
         },
 
-        // UserRef: { // Untuk referensi pengguna (kasir)
-        //   type: 'object',
-        //   properties: {
-        //     _id: { type: 'string', description: 'User ID' },
-        //     name: { type: 'string', description: 'User name' }
-        //   },
-        //   example: {
-        //     _id: '6669297dd47153acb7c098ff',
-        //     name: 'Kasir Utama'
-        //   }
-        // },
 
-        // ================== COMMON Responses ==================
         ErrorResponse: {
           type: 'object',
           properties: {
@@ -583,18 +479,640 @@ const swaggerOptions = {
           }
         }
       },
+
     },
-    security: [ // Global security, can be overridden by individual paths
-      {
-        BearerAuth: []
+
+
+    paths: {
+      '/products': {
+        get: {
+          summary: 'Get all products with optional filtering, search, and pagination',
+          tags: ['Products'],
+          parameters: [
+            { in: 'query', name: 'category', schema: { type: 'string' }, description: 'Filter products by category name' },
+            { in: 'query', name: 'search', schema: { type: 'string' }, description: 'Search products by name or description' },
+            { in: 'query', name: 'limit', schema: { type: 'integer', default: 10 }, description: 'Number of products to return per page' },
+            { in: 'query', name: 'page', schema: { type: 'integer', default: 1 }, description: 'Page number' }
+          ],
+          responses: {
+            '200': {
+              description: 'List of products',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      products: { type: 'array', items: { $ref: '#/components/schemas/Product' } },
+                      total: { type: 'integer' },
+                      page: { type: 'integer' },
+                      pages: { type: 'integer' }
+                    }
+                  }
+                }
+              }
+            },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Create a new product',
+          tags: ['Products'],
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ProductInput' }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'Product created successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Product' } } } },
+            '400': { description: 'Invalid input or product with name already exists', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+      '/products/{id}': {
+        get: {
+          summary: 'Get product by ID',
+          tags: ['Products'],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The product ID' }],
+          responses: {
+            '200': { description: 'Product data', content: { 'application/json': { schema: { $ref: '#/components/schemas/Product' } } } },
+            '400': { description: 'Invalid Product ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        put: {
+          summary: 'Update a product by ID',
+          tags: ['Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The product ID' }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ProductInput' }
+              }
+            }
+          },
+          responses: {
+            '200': { description: 'Product updated successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Product' } } } },
+            '400': { description: 'Invalid Product ID or invalid input', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        delete: {
+          summary: 'Delete a product by ID',
+          tags: ['Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The product ID' }],
+          responses: {
+            '200': { description: 'Product removed successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '400': { description: 'Invalid Product ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+
+      '/products/{productId}/price-history': {
+        get: {
+          summary: 'Get price history for a product',
+          tags: ['Product Price History', 'Products'],
+          parameters: [
+            { in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' },
+            { in: 'query', name: 'limit', schema: { type: 'integer', default: 10 }, description: 'Number of history entries to return' },
+            { in: 'query', name: 'page', schema: { type: 'integer', default: 1 }, description: 'Page number' }
+          ],
+          responses: {
+            '200': { description: 'List of price history entries', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/ProductPriceHistory' } } } } },
+            '400': { description: 'Invalid Product ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Add a new price history entry for a product (update product price)',
+          tags: ['Product Price History', 'Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['price'],
+                  properties: {
+                    price: { type: 'number', format: 'float', description: 'The new price for the product' }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'New price history entry created', content: { 'application/json': { schema: { $ref: '#/components/schemas/ProductPriceHistory' } } } },
+            '400': { description: 'Invalid Product ID or invalid input', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+
+
+
+
+
+      '/categories': {
+        get: {
+          summary: 'Get all categories',
+          tags: ['Categories'],
+          responses: {
+            '200': { description: 'List of categories', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Category' } } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Create a new category',
+          tags: ['Categories'],
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/CategoryInput' }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'Category created successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Category' } } } },
+            '400': { description: 'Invalid input or category with name already exists', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+      '/categories/{id}': {
+        get: {
+          summary: 'Get category by ID',
+          tags: ['Categories'],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The category ID' }],
+          responses: {
+            '200': { description: 'Category data', content: { 'application/json': { schema: { $ref: '#/components/schemas/Category' } } } },
+            '400': { description: 'Invalid Category ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Category not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        put: {
+          summary: 'Update a category by ID',
+          tags: ['Categories'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The category ID' }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/CategoryInput' }
+              }
+            }
+          },
+          responses: {
+            '200': { description: 'Category updated successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Category' } } } },
+            '400': { description: 'Invalid Category ID or invalid input', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Category not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        delete: {
+          summary: 'Delete a category by ID',
+          tags: ['Categories'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The category ID' }],
+          responses: {
+            '200': { description: 'Category removed successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '400': { description: 'Invalid Category ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Category not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+
+
+
+
+
+      '/suppliers': {
+        get: {
+          summary: 'Get all suppliers',
+          tags: ['Suppliers'],
+          security: [{ BearerAuth: [] }],
+          responses: {
+            '200': { description: 'List of suppliers', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Supplier' } } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Create a new supplier',
+          tags: ['Suppliers'],
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['name'],
+                  properties: {
+                    name: { type: 'string' },
+                    contactPerson: { type: 'string', nullable: true },
+                    phone: { type: 'string', nullable: true },
+                    email: { type: 'string', format: 'email', nullable: true },
+                    address: { type: 'string', nullable: true },
+                    notes: { type: 'string', nullable: true }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'Supplier created successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Supplier' } } } },
+            '400': { description: 'Invalid input or supplier name already exists', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+      '/suppliers/{id}': {
+        get: {
+          summary: 'Get supplier by ID',
+          tags: ['Suppliers'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The supplier ID' }],
+          responses: {
+            '200': { description: 'Supplier data', content: { 'application/json': { schema: { $ref: '#/components/schemas/Supplier' } } } },
+            '404': { description: 'Supplier not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        put: {
+          summary: 'Update a supplier by ID',
+          tags: ['Suppliers'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The supplier ID' }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    name: { type: 'string' },
+                    contactPerson: { type: 'string', nullable: true },
+                    phone: { type: 'string', nullable: true },
+                    email: { type: 'string', format: 'email', nullable: true },
+                    address: { type: 'string', nullable: true },
+                    notes: { type: 'string', nullable: true }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            '200': { description: 'Supplier updated successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Supplier' } } } },
+            '400': { description: 'Invalid input', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Supplier not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        delete: {
+          summary: 'Delete a supplier by ID',
+          tags: ['Suppliers'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The supplier ID' }],
+          responses: {
+            '200': { description: 'Supplier removed successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '400': { description: 'Invalid Supplier ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Supplier not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+
+
+
+
+
+      '/products/{productId}/suppliers': {
+        get: {
+          summary: 'Get all suppliers linked to a specific product',
+          tags: ['Product Suppliers', 'Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' }
+          ],
+          responses: {
+            '200': { description: 'List of product-supplier links', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/ProductSupplier' } } } } },
+            '404': { description: 'Product not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Link a supplier to a product (e.g., set purchasing cost)',
+          tags: ['Product Suppliers', 'Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' }
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ProductSupplierInput' }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'Supplier linked to product successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ProductSupplier' } } } },
+            '400': { description: 'Invalid input or supplier already linked to product', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product or Supplier not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+      '/products/{productId}/suppliers/{supplierId}': {
+        get: {
+          summary: 'Get details of a specific supplier link for a product',
+          tags: ['Product Suppliers', 'Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' },
+            { in: 'path', name: 'supplierId', schema: { type: 'string' }, required: true, description: 'The supplier ID' }
+          ],
+          responses: {
+            '200': { description: 'Product-supplier link data', content: { 'application/json': { schema: { $ref: '#/components/schemas/ProductSupplier' } } } },
+            '404': { description: 'Product-supplier link not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        put: {
+          summary: 'Update supplier link details for a product',
+          tags: ['Product Suppliers', 'Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' },
+            { in: 'path', name: 'supplierId', schema: { type: 'string' }, required: true, description: 'The supplier ID' }
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    supplierSku: { type: 'string', nullable: true },
+                    unitCost: { type: 'number', format: 'float', nullable: true },
+                    minOrderQuantity: { type: 'integer', nullable: true },
+                    leadTimeDays: { type: 'integer', nullable: true }
+                  }
+                }
+              }
+            }
+          },
+          responses: {
+            '200': { description: 'Product-supplier link updated successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ProductSupplier' } } } },
+            '400': { description: 'Invalid input', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product-supplier link not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        delete: {
+          summary: 'Remove a supplier link from a product',
+          tags: ['Product Suppliers', 'Products'],
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { in: 'path', name: 'productId', schema: { type: 'string' }, required: true, description: 'The product ID' },
+            { in: 'path', name: 'supplierId', schema: { type: 'string' }, required: true, description: 'The supplier ID' }
+          ],
+          responses: {
+            '200': { description: 'Product-supplier link removed successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Product-supplier link not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+
+
+
+
+
+      '/transaction-types': {
+        get: {
+          summary: 'Get all transaction types',
+          tags: ['Transaction Types'],
+          security: [{ BearerAuth: [] }],
+          responses: {
+            '200': { description: 'List of transaction types', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/TransactionType' } } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Create a new transaction type',
+          tags: ['Transaction Types'],
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/TransactionTypeInput' }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'Transaction type created successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/TransactionType' } } } },
+            '400': { description: 'Invalid input or transaction type name already exists', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+      '/transaction-types/{id}': {
+        get: {
+          summary: 'Get transaction type by ID',
+          tags: ['Transaction Types'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The transaction type ID' }],
+          responses: {
+            '200': { description: 'Transaction type data', content: { 'application/json': { schema: { $ref: '#/components/schemas/TransactionType' } } } },
+            '404': { description: 'Transaction type not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        put: {
+          summary: 'Update a transaction type by ID',
+          tags: ['Transaction Types'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The transaction type ID' }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/TransactionTypeInput' }
+              }
+            }
+          },
+          responses: {
+            '200': { description: 'Transaction type updated successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/TransactionType' } } } },
+            '400': { description: 'Invalid input', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Transaction type not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        delete: {
+          summary: 'Delete a transaction type by ID',
+          tags: ['Transaction Types'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The transaction type ID' }],
+          responses: {
+            '200': { description: 'Transaction type removed successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '400': { description: 'Invalid Transaction Type ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Transaction type not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+
+
+
+
+
+      '/transactions': {
+        get: {
+          summary: 'Get all transactions with optional filters and pagination',
+          tags: ['Transactions'],
+          security: [{ BearerAuth: [] }],
+          parameters: [
+            { in: 'query', name: 'cashierId', schema: { type: 'string' }, description: 'Filter by cashier ID' },
+            { in: 'query', name: 'startDate', schema: { type: 'string', format: 'date' }, description: 'Filter by start date (YYYY-MM-DD)' },
+            { in: 'query', name: 'endDate', schema: { type: 'string', format: 'date' }, description: 'Filter by end date (YYYY-MM-DD)' },
+            { in: 'query', name: 'limit', schema: { type: 'integer', default: 10 }, description: 'Number of transactions to return per page' },
+            { in: 'query', name: 'page', schema: { type: 'integer', default: 1 }, description: 'Page number' }
+          ],
+          responses: {
+            '200': {
+              description: 'List of transactions',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      transactions: { type: 'array', items: { $ref: '#/components/schemas/Transaction' } },
+                      total: { type: 'integer' },
+                      page: { type: 'integer' },
+                      pages: { type: 'integer' }
+                    }
+                  }
+                }
+              }
+            },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+        post: {
+          summary: 'Create a new transaction',
+          tags: ['Transactions'],
+          security: [{ BearerAuth: [] }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/TransactionInput' }
+              }
+            }
+          },
+          responses: {
+            '201': { description: 'Transaction created successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Transaction' } } } },
+            '400': { description: 'Invalid input or insufficient stock', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+      },
+      '/transactions/{id}': {
+        get: {
+          summary: 'Get transaction by ID',
+          tags: ['Transactions'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The transaction ID' }],
+          responses: {
+            '200': { description: 'Transaction data', content: { 'application/json': { schema: { $ref: '#/components/schemas/Transaction' } } } },
+            '400': { description: 'Invalid Transaction ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Transaction not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        },
+
+
+        patch: {
+          summary: 'Update transaction status by ID',
+          tags: ['Transactions'],
+          security: [{ BearerAuth: [] }],
+          parameters: [{ in: 'path', name: 'id', schema: { type: 'string' }, required: true, description: 'The transaction ID' }],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    status: { $ref: '#/components/schemas/TransactionStatus' }
+                  },
+                  required: ['status']
+                }
+              }
+            }
+          },
+          responses: {
+            '200': { description: 'Transaction status updated successfully', content: { 'application/json': { schema: { $ref: '#/components/schemas/Transaction' } } } },
+            '400': { description: 'Invalid input or Transaction ID format', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '401': { description: 'Unauthorized', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '404': { description: 'Transaction not found', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+            '500': { description: 'Server error', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } }
+          }
+        }
+
       }
-    ]
+    }
   },
+
   apis: [
     '../routes/*.ts',
-    '../models/*.ts',// Termasuk ini untuk skema yang didefinisikan di komentar mode
-    '../routes/*.js',
-    '../models/*.js' // Termasuk ini untuk skema yang didefinisikan di komentar model
+    '../models/*.ts',
   ],
 };
 
